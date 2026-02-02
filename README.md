@@ -6,19 +6,19 @@
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Collabnix](https://img.shields.io/badge/Community-Collabnix-orange)](https://collabnix.com)
 
-## 🎵 What is this?
+## What is this?
 
 **cagent-antakshari** is a fun, creative project that demonstrates multi-agent collaboration using [Docker cagent](https://github.com/docker/cagent). 
 
 Inspired by the classic Indian musical game [Antakshari](https://en.wikipedia.org/wiki/Antakshari), this project features AI agents that:
 
-- 🎤 **Create songs** - Original lyrics, chord progressions, production notes
-- 📝 **Review & critique** - Honest feedback like a music judge
-- 🔥 **Hype & comment** - Enthusiastic fan reactions
-- 🎧 **Remix & respond** - Create variations and answer tracks
-- 🎵 **Play Antakshari** - Chain songs based on ending/starting letters!
+- **Create songs** - Original lyrics, chord progressions, production notes
+- **Review & critique** - Honest feedback like a music judge
+- **Hype & comment** - Enthusiastic fan reactions
+- **Remix & respond** - Create variations and answer tracks
+- **Play Antakshari** - Chain songs based on ending/starting letters!
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -29,7 +29,7 @@ Inspired by the classic Indian musical game [Antakshari](https://en.wikipedia.or
         ┌─────────────┼─────────────┬─────────────┐
         ▼             ▼             ▼             ▼
    ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐
-   │ 🎤      │  │ ⭐      │  │ 🔥      │  │ 🎧      │
+   │         │  │         │  │         │  │         │
    │ ByteBeat│  │ The     │  │ HypeBoi │  │ Remix   │
    │ (Singer)│  │ Judge   │  │ 3000    │  │ Raja    │
    └─────────┘  └─────────┘  └─────────┘  └─────────┘
@@ -37,7 +37,7 @@ Inspired by the classic Indian musical game [Antakshari](https://en.wikipedia.or
    Songs        & Rates      & Hypes       & Flips
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -71,7 +71,7 @@ cagent run agents/remix-raja.yaml           # Remix a song
 cagent run agents/antakshari-game.yaml
 ```
 
-## 🎭 Meet the Agents
+## Meet the Agents
 
 | Agent | Role | Personality |
 |-------|------|-------------|
@@ -81,7 +81,7 @@ cagent run agents/antakshari-game.yaml
 | 🎧 **RemixRaja** | Producer | Flips genres, creates answer tracks |
 | 🎵 **Antakshari Master** | Game Host | Runs the classic song chain game |
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 docker-cagent-antakshari/
@@ -101,7 +101,7 @@ docker-cagent-antakshari/
 └── README.md
 ```
 
-## 🌐 Web Demo
+## Web Demo
 
 ### Option 1: Static HTML Demo (Quickest)
 ```bash
