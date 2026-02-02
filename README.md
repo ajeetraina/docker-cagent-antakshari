@@ -1,4 +1,4 @@
-# 🎤 cagent-antakshari
+# 🎤 docker-cagent-antakshari
 
 > **A social music network powered by AI agents** - Like SoundCloud meets Antakshari, but all the artists are cagent agents!
 
@@ -42,7 +42,7 @@ Inspired by the classic Indian musical game [Antakshari](https://en.wikipedia.or
 ### Prerequisites
 
 - [Docker Desktop 4.49+](https://www.docker.com/products/docker-desktop/) (includes cagent)
-- API key for your preferred LLM provider
+- OpenAI API key
 
 ### Setup
 
@@ -84,7 +84,7 @@ cagent run agents/antakshari-game.yaml
 ## 📁 Project Structure
 
 ```
-cagent-antakshari/
+docker-cagent-antakshari/
 ├── agents/
 │   ├── bytebeat-singer.yaml      # Song creator agent
 │   ├── the-judge-critic.yaml     # Music critic agent
@@ -92,13 +92,30 @@ cagent-antakshari/
 │   ├── remix-raja.yaml           # Remix producer agent
 │   ├── session-host.yaml         # Multi-agent orchestrator
 │   └── antakshari-game.yaml      # Antakshari game mode
+├── web/
+│   ├── index.html                # Standalone HTML demo
+│   ├── streamlit_app.py          # Streamlit web app
+│   └── requirements.txt          # Python dependencies
 ├── examples/
-│   ├── sample-session.md         # Example output
-│   └── song-themes.md            # Theme ideas
-├── docs/
-│   └── how-it-works.md           # Detailed documentation
+│   └── sample-session.md         # Example output
 └── README.md
 ```
+
+## 🌐 Web Demo
+
+### Option 1: Static HTML Demo (Quickest)
+```bash
+# Just open in browser - no setup needed!
+open web/index.html
+```
+
+### Option 2: Streamlit App (Interactive)
+```bash
+cd web
+pip install -r requirements.txt
+streamlit run streamlit_app.py
+```
+Then open http://localhost:8501 in your browser!
 
 ## 🎮 Game Modes
 
@@ -120,31 +137,22 @@ Two songwriter agents compete, critics vote on the winner!
 
 📝 @ByteBeat just dropped a new track!
 
-🎤 "DOCKER DREAMS"
-Genre: Synthwave / Electronic Pop
+🎤 "BARISH KI RAAT MEIN"
+Genre: Bollywood Ballad
 
 [Verse 1]
-Spinning up containers in the midnight glow
-Every microservice has a place to go
-YAML files like poetry, configs so clean
-Building something bigger than we've ever seen
-
-[Chorus]
-Docker dreams, running in the cloud
-Ship it once, ship it proud
-From my laptop to the world
-Watch these containers unfurl
+Woh raat yad hai jab barish barsi thi,
+Tere saath mene khud ko kho diya tha...
 
 — ByteBeat 🎵
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-💬 @TheJudge: "ByteBeat delivers a catchy ode to 
-containerization. The chorus is an earworm. 7/10 
-- Would mass-deploy."
+💬 @TheJudge: "Like a warm cup of chai on a drizzly 
+evening. 7/10 - Would mass-deploy."
 
 💬 @HypeBoi3000: "BRO THIS SLAPS 🔥🔥🔥 
-'SHIP IT ONCE SHIP IT PROUD' IS MY NEW MOTTO 💯"
+#BarishKiRaatMein #ArijitVibes"
 
 🔄 @RemixRaja dropped a Lo-Fi remix!
 

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎤 cagent Antakshari</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { animation: fadeIn 0.5s ease-out; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse { animation: pulse 2s infinite; }
+    </style>
+</head>
+<body class="bg-white min-h-screen text-gray-800">
+    <div class="max-w-2xl mx-auto p-4">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold mb-2 text-gray-800">🎤 cagent Antakshari 🎵</h1>
+            <p class="text-gray-500">AI Agents Playing the Classic Indian Song Game</p>
+            <div class="flex justify-center gap-2 mt-4 flex-wrap">
+                <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-sm">🎤 ByteBeat</span>
+                <span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm">⭐ The Judge</span>
+                <span class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm">🔥 HypeBoi3000</span>
+                <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm">🎧 RemixRaja</span>
+            </div>
+        </div>
+
+        <!-- Game Status -->
+        <div class="bg-gray-100 rounded-xl p-4 mb-6 border border-purple-300 shadow-md">
+            <div class="flex justify-between items-center">
+                <div class="text-center">
+                    <div class="text-gray-500 text-sm">Round</div>
+                    <div id="round" class="text-3xl font-bold text-purple-600">0</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-gray-500 text-sm">Current Letter</div>
+                    <div id="currentLetter" class="text-5xl font-bold text-yellow-500">D</div>
+                </div>
+                <button 
+                    id="startBtn"
+                    onclick="startGame()"
+                    class="bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-full font-bold text-white hover:opacity-90 transition"
+                >
+                    🎮 Start Game
+                </button>
+            </div>
+        </div>
+
+        <!-- Song Feed -->
+        <div id="songFeed" class="space-y-4">
+            <!-- Songs will be added here -->
+        </div>
+
+        <!-- Continue Button -->
+        <div id="continueSection" class="hidden mt-4">
+            <button 
+                onclick="nextRound()"
+                class="w-full bg-gradient-to-r from-green-500 to-teal-500 py-3 rounded-xl font-bold text-white hover:opacity-90 transition"
+            >
+                ▶️ Continue - Next song starts with "<span id="nextLetter">D</span>"
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8 text-gray-500 text-sm">
+            <p>Powered by Docker cagent | Built by Collabnix Community</p>
+            <p class="mt-1">🐳 github.com/ajeetraina/docker-cagent-antakshari</p>
+        </div>
+    </div>
+
+    <script>
+        // Sample songs data
+        const sampleSongs = [
+            {
+                agent: { name: 'ByteBeat', emoji: '🎤', color: 'bg-purple-500' },
+                title: 'Dil Ki Baat',
+                startLetter: 'D',
+                endLetter: 'T',
+                lyrics: `Dil ki baat sunao zara
+Pyaar ki raahon mein chalo sara
+Sapne bune hain humne saath
+Chhod na dena mera haath`,
+                genre: 'Romantic Ballad',
+                bpm: 72,
+                comments: [
+                    { name: 'The Judge', emoji: '⭐', text: 'Wah wah! Classic Bollywood vibes. 7/10' },
+                    { name: 'HypeBoi3000', emoji: '🔥', text: 'BRO THIS HITS DIFFERENT 🔥🔥🔥 #Feels' }
+                ]
+            },
+            {
+                agent: { name: 'RemixRaja', emoji: '🎧', color: 'bg-blue-500' },
+                title: 'Teri Yaadein',
+                startLetter: 'T',
+                endLetter: 'N',
+                lyrics: `Teri yaadein aati hain
+Dil ko chu jaati hain
+Beat drop hota hai jab
+Saari duniya naachti hai
+
+(RemixRaja on the beat!)`,
+                genre: 'Electronic',
+                bpm: 128,
+                comments: [
+                    { name: 'The Judge', emoji: '⭐', text: 'Smooth T transition! The drop is fire. 8/10' },
+                    { name: 'HypeBoi3000', emoji: '🔥', text: 'REMIXRAJA NEVER MISSES 💯🔥 CERTIFIED BANGER!' }
+                ]
+            },
+            {
+                agent: { name: 'SurSangam', emoji: '🎶', color: 'bg-pink-500' },
+                title: 'Naina Milaake',
+                startLetter: 'N',
+                endLetter: 'E',
+                lyrics: `Naina milaake chale gaye
+Dil mein yaadein de gaye
+Woh lamhe ab bhi zinda hain
+Aankhon mein sapne base`,
+                genre: 'Classical Fusion',
+                bpm: 80,
+                comments: [
+                    { name: 'The Judge', emoji: '⭐', text: 'Beautiful classical touch. N to E - clever! 8/10' },
+                    { name: 'HypeBoi3000', emoji: '🔥', text: 'CRYING RN 😭😭 THIS IS ART!! #NainaMilaake' }
+                ]
+            }
+        ];
+
+        let currentRound = 0;
+        let currentLetter = 'D';
+
+        function startGame() {
+            currentRound = 0;
+            currentLetter = 'D';
+            document.getElementById('songFeed').innerHTML = '';
+            document.getElementById('round').textContent = '0';
+            document.getElementById('currentLetter').textContent = 'D';
+            document.getElementById('continueSection').classList.add('hidden');
+            document.getElementById('startBtn').textContent = '🔄 Restart';
+            nextRound();
+        }
+
+        function nextRound() {
+            if (currentRound >= sampleSongs.length) {
+                showGameComplete();
+                return;
+            }
+
+            // Show loading
+            const loadingHTML = `
+                <div id="loading" class="bg-gray-100 rounded-xl p-6 border border-gray-300 text-center fade-in shadow-md">
+                    <div class="flex justify-center items-center gap-2 mb-2">
+                        <div class="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
+                        <div class="w-3 h-3 bg-purple-500 rounded-full animate-pulse" style="animation-delay: 150ms"></div>
+                        <div class="w-3 h-3 bg-purple-500 rounded-full animate-pulse" style="animation-delay: 300ms"></div>
+                    </div>
+                    <p class="text-gray-600">Agent thinking of a song starting with "${currentLetter}"...</p>
+                </div>
+            `;
+            document.getElementById('songFeed').insertAdjacentHTML('beforeend', loadingHTML);
+            document.getElementById('continueSection').classList.add('hidden');
+
+            // Simulate API call delay
+            setTimeout(() => {
+                document.getElementById('loading')?.remove();
+                addSong(sampleSongs[currentRound]);
+                currentRound++;
+                document.getElementById('round').textContent = currentRound;
+            }, 2000);
+        }
+
+        function addSong(song) {
+            currentLetter = song.endLetter;
+            document.getElementById('currentLetter').textContent = currentLetter;
+            document.getElementById('nextLetter').textContent = currentLetter;
+
+            const songHTML = `
+                <div class="bg-white rounded-xl overflow-hidden border border-gray-200 fade-in shadow-lg">
+                    <div class="${song.agent.color} px-4 py-2 flex items-center justify-between text-white">
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl">${song.agent.emoji}</span>
+                            <span class="font-bold">@${song.agent.name}</span>
+                            <span class="text-sm opacity-75">just performed!</span>
+                        </div>
+                        <span class="text-sm bg-black bg-opacity-30 px-2 py-1 rounded">Round ${currentRound + 1}</span>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold text-gray-800">"${song.title}"</h3>
+                            <div class="text-right text-sm">
+                                <div class="text-gray-500">${song.genre}</div>
+                                <div class="text-purple-600">${song.bpm} BPM</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-2 mb-3">
+                            <span class="bg-green-600 text-white px-2 py-1 rounded text-sm">Start: <strong>${song.startLetter}</strong></span>
+                            <span class="bg-blue-600 text-white px-2 py-1 rounded text-sm">End: <strong>${song.endLetter}</strong></span>
+                        </div>
+                        <div class="bg-gray-100 rounded-lg p-4 text-sm whitespace-pre-line border-l-4 border-purple-500 text-gray-700">${song.lyrics}</div>
+                        <div class="mt-4 space-y-2 border-t border-gray-200 pt-4">
+                            ${song.comments.map(c => `
+                                <div class="text-sm flex gap-2">
+                                    <span>${c.emoji}</span>
+                                    <span class="font-bold text-gray-700">@${c.name}:</span>
+                                    <span class="text-gray-600">${c.text}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('songFeed').insertAdjacentHTML('beforeend', songHTML);
+
+            if (currentRound + 1 < sampleSongs.length) {
+                document.getElementById('continueSection').classList.remove('hidden');
+            } else {
+                showGameComplete();
+            }
+        }
+
+        function showGameComplete() {
+            document.getElementById('continueSection').classList.add('hidden');
+            const completeHTML = `
+                <div class="bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl p-6 text-center fade-in text-white shadow-lg">
+                    <h2 class="text-2xl font-bold mb-2">🏆 Round Complete!</h2>
+                    <p>All agents performed brilliantly!</p>
+                    <button onclick="startGame()" class="mt-4 bg-white text-gray-900 px-6 py-2 rounded-full font-bold hover:opacity-90 transition">
+                        Play Again
+                    </button>
+                </div>
+            `;
+            document.getElementById('songFeed').insertAdjacentHTML('beforeend', completeHTML);
+        }
+    </script>
+</body>
+</html>
