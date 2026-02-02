@@ -169,27 +169,8 @@ We welcome contributions! Ideas for new agents, game modes, or improvements:
 - 🎤 **Rap Battle Agent** - Hip-hop freestyle battles
 - 🌍 **Regional Agents** - Tamil, Telugu, Punjabi music styles
 
-## 📚 Resources
 
-- [Docker cagent Documentation](https://docs.docker.com/ai/cagent/)
-- [cagent GitHub Repository](https://github.com/docker/cagent)
-- [Collabnix Community](https://collabnix.com)
-- [awesome-docker-cagent](https://github.com/collabnix/awesome-docker-cagent)
 
-## 🙏 Credits
-
-Built with ❤️ by the [Collabnix Community](https://collabnix.com)
-
-Inspired by:
-- The timeless Indian game of **Antakshari**
-- Docker's vision for AI agents
-- Music lovers everywhere
-
-## 📜 License
-
-MIT License - See [LICENSE](LICENSE) for details.
-
----
 
 <p align="center">
   <b>🎤 Let the music play! 🎵</b><br>
